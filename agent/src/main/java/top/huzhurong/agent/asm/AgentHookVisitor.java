@@ -49,6 +49,7 @@ public class AgentHookVisitor extends ClassVisitor {
 
     @Override
     public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
+        System.out.println(name);
         if (name.equals("rowData")) {
             MethodVisitor mmv = cv.visitMethod(Opcodes.ACC_PUBLIC, "getASMRowData", "()Ltop/huzhurong/agent/inter/sql/RowData;", null, null);
             mmv.visitCode();

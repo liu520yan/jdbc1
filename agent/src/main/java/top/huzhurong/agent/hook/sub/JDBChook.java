@@ -10,14 +10,17 @@ import top.huzhurong.agent.log.AgentLog;
  * @author chenshun00@gmail.com
  * @since 2018/10/14
  */
-public class MysqlHook extends BaseHook {
+public class JDBChook extends BaseHook {
 
-    public MysqlHook() {
-        class_name.add("com.mysql.jdbc.PreparedStatement");
+    public JDBChook() {
+//        class_name.add("java.sql.Statement");
+        class_name.add("java/sql/Statement");
+//        class_name.add("com/mysql/jdbc/PreparedStatement");
+//        class_name.add("com.mysql.jdbc.PreparedStatement");
         method_name.put("executeInternal", null);
     }
 
-    public static final MysqlHook Instance = new MysqlHook();
+    public static final JDBChook Instance = new JDBChook();
 
     @Override
     public void into(Object curObject, Object[] args) {

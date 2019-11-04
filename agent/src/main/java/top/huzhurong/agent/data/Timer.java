@@ -10,11 +10,17 @@ public class Timer {
     public static void init() {
         System.out.println("==================timer init==================");
         java.util.Timer timer = new java.util.Timer("agent-timer", true);
+//        timer.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                //定时输出数据
+//            }
+//        }, 10 * 1000, 60 * 1000);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                //定时输出数据
+//                System.out.println("nihao");
             }
-        }, 10 * 1000, 60 * 1000);
+        }, 10, 60 * 1000);
     }
 }

@@ -7,8 +7,7 @@ import top.huzhurong.agent.annotation.InjectInterface;
 import top.huzhurong.agent.asm.AgentHookVisitor;
 import top.huzhurong.agent.asm.TraceClassWriter;
 import top.huzhurong.agent.hook.BaseHook;
-import top.huzhurong.agent.hook.sub.MysqlHook;
-import top.huzhurong.agent.hook.sub.http.SunHttpClientHook;
+import top.huzhurong.agent.hook.sub.JDBChook;
 import top.huzhurong.agent.inter.sql.ResultSet;
 import top.huzhurong.agent.inter.sql.RowData;
 
@@ -37,8 +36,7 @@ public class OMysqlTransaformer implements ClassFileTransformer {
     private static Set<BaseHook> hooks = new HashSet<>();
 
     static {
-        hooks.add(MysqlHook.Instance);
-        hooks.add(SunHttpClientHook.Instance);
+        hooks.add(JDBChook.Instance);
 
         for (BaseHook hook : hooks) {
             for (String name : hook.getClassName()) {
@@ -63,11 +61,12 @@ public class OMysqlTransaformer implements ClassFileTransformer {
 
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
-        if (className.startsWith("java")) {
-            return classfileBuffer;
-        }
-        System.out.println("className:" + className + "\t" + loader);
+//        if (className.startsWith("java")) {
+//            return classfileBuffer;
+//        }
+//        System.out.println("className:" + className + "\t" + loader);
         //hook 注入
+        System.out.println(className);
         if (inject_hooks.containsKey(className)) {
             ClassReader classReader = new ClassReader(classfileBuffer);
             ClassWriter classWriter = new TraceClassWriter(classReader, ClassWriter.COMPUTE_MAXS, loader);
